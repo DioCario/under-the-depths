@@ -12,10 +12,10 @@ pg.init()
 
 
 # Screen Size
-#screen_width = 1280
-#screen_height = 720
+screen_width = 1280
+screen_height = 720
 #display = pygame.display.set_mode((pygame.transform.scale(game_canvas, screen.get_size())))
-#display = pygame.display.set_mode((screen_width, screen_height))
+display = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 seed = np.random.default_rng()
 countplayeranimation = 0

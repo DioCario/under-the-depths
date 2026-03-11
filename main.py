@@ -59,8 +59,8 @@ async def main():
     start_time = time.time()
     
     # Load Tiles
-    floor,wallimg = pg.image.load(os.path.join('assets', 'images', 'floor tile.png')).convert(),pg.image.load(os.path.join('assets', 'images', 'wall tile.png')).convert()
-    wall = wallimg.get_rect()
+    floor,wall = pg.image.load(os.path.join('assets', 'images', 'floor tile.png')).convert(),pg.image.load(os.path.join('assets', 'images', 'wall tile.png')).convert()
+    wallr = wall.get_rect()
 
 
     tilemap = {}
@@ -244,8 +244,9 @@ async def main():
                         # Wall Code (Rect)
                         x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
                         y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
-                        wall.center = (x_rect,y_rect)
-                        display.blit(wallimg, wall)
+                        #wallr.center = (x_rect,y_rect)
+                        #display.blit(wall, wallr)
+                        display.blit(tile_index[1], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
                         wall_hitbox.append(pygame.Rect(x_rect - 48, y_rect - (tile_size / 2), tile_size, tile_size))
                         #wall_mask = pygame.mask.from_surface(wallimg)
                     else: 
