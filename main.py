@@ -451,7 +451,7 @@ async def main():
     
         # Player Render
         framename, attack = player.main(display, framename, UP, DOWN, LEFT, RIGHT, attack)
-        #display.blit(ui, (screen_width-165/2, screen_height/2))
+        display.blit(ui, (screen_width-544, 0))
         # Frame Updater
         clock.tick(60)
         await asyncio.sleep(0)
