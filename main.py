@@ -13,6 +13,11 @@ from chunk_gen import *
 pygame.init()
 pg.init()
 
+# Init Music
+introsong = pygame.mixer.Sound(os.path.join('assets', 'songs', 'intro.ogg'))
+bgsong1 = pygame.mixer.Sound(os.path.join('assets', 'songs', 'background1.ogg'))
+introchannel = pygame.mixer.Channel(0)
+bgchannel = pygame.mixer.Channel(1)
 
 # Screen Size
 screen_width = 1280
@@ -50,6 +55,10 @@ async def main():
     pygame.mouse.set_visible(False)
     wall_hitbox = []
     slime_hitbox = []
+    gslime_hitbox = []
+    pslimehitbox = []
+    bslime_hitbox = []
+    yslime_hitbox = []
     LAST_BUTTON = ''
     tile_size = 64
     deleted_slimes = []
@@ -138,23 +147,51 @@ async def main():
     b3sword = pg.image.load(os.path.join('assets', 'images', 'player', 'b3sword.png')).convert_alpha()
     b4sword = pg.image.load(os.path.join('assets', 'images', 'player', 'b4sword.png')).convert_alpha()
     
-    # Blob
-    f1slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump1.png')).convert_alpha()
-    f2slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump2.png')).convert_alpha()
-    f3slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump3.png')).convert_alpha()
-    f4slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump4.png')).convert_alpha()
-    f5slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump5.png')).convert_alpha()
-    f6slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump6.png')).convert_alpha()
-    f7slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump7.png')).convert_alpha()
-    f8slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump8.png')).convert_alpha()
+    # Green Blob
+    f1slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump1.png')).convert_alpha()
+    f2slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump2.png')).convert_alpha()
+    f3slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump3.png')).convert_alpha()
+    f4slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump4.png')).convert_alpha()
+    f5slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump5.png')).convert_alpha()
+    f6slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump6.png')).convert_alpha()
+    f7slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump7.png')).convert_alpha()
+    f8slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'gslimejump8.png')).convert_alpha()
     
+    # Purple Blob
+    f1slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump1.png')).convert_alpha()
+    f2slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump2.png')).convert_alpha()
+    f3slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump3.png')).convert_alpha()
+    f4slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump4.png')).convert_alpha()
+    f5slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump5.png')).convert_alpha()
+    f6slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump6.png')).convert_alpha()
+    f7slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump7.png')).convert_alpha()
+    f8slimepurple = pg.image.load(os.path.join('assets', 'images', 'blob', 'pslimejump8.png')).convert_alpha()
 
+    # Blue Blob
+    f1slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump1.png')).convert_alpha()
+    f2slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump2.png')).convert_alpha()
+    f3slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump3.png')).convert_alpha()
+    f4slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump4.png')).convert_alpha()
+    f5slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump5.png')).convert_alpha()
+    f6slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump6.png')).convert_alpha()
+    f7slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump7.png')).convert_alpha()
+    f8slimeblue = pg.image.load(os.path.join('assets', 'images', 'blob', 'bslimejump8.png')).convert_alpha()
+
+    # Yellow Blob
+    f1slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump1.png')).convert_alpha()
+    f2slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump2.png')).convert_alpha()
+    f3slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump3.png')).convert_alpha()
+    f4slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump4.png')).convert_alpha()
+    f5slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump5.png')).convert_alpha()
+    f6slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump6.png')).convert_alpha()
+    f7slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump7.png')).convert_alpha()
+    f8slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump8.png')).convert_alpha()
 
     #Index Tiles
     tile_index = {0:floor,
                   1:wall}
-    
-    slime_index = {0:f1slimegreen,
+    # 1 = green
+    gslime_index = {0:f1slimegreen,
                    1:f2slimegreen,
                    2:f3slimegreen,
                    3:f4slimegreen,
@@ -163,6 +200,39 @@ async def main():
                    6:f7slimegreen,
                    7:f8slimegreen,
                 }    
+
+    # 2 = purple
+    pslime_index = {0:f3slimepurple,
+                   1:f4slimepurple,
+                   2:f5slimepurple,
+                   3:f6slimepurple,
+                   4:f7slimepurple,
+                   5:f8slimepurple,
+                   6:f1slimepurple,
+                   7:f2slimepurple,
+                }  
+
+    # 3 = blue
+    bslime_index = {0:f5slimeblue,
+                   1:f6slimeblue,
+                   2:f7slimeblue,
+                   3:f8slimeblue,
+                   4:f1slimeblue,
+                   5:f2slimeblue,
+                   6:f3slimeblue,
+                   7:f4slimeblue,
+                }  
+
+    # 4 = yellow
+    yslime_index = {0:f7slimeyellow,
+                   1:f8slimeyellow,
+                   2:f1slimeyellow,
+                   3:f2slimeyellow,
+                   4:f3slimeyellow,
+                   5:f4slimeyellow,
+                   6:f5slimeyellow,
+                   7:f6slimeyellow,
+                }  
 
     nindex = {
         0:zero,
@@ -213,6 +283,10 @@ async def main():
     
         wall_hitbox = []
         slime_hitbox = []
+        gslime_hitbox = []
+        pslime_hitbox = []
+        bslime_hitbox = []
+        yslime_hitbox = []
     
         # Get Key Presses
         keys = pygame.key.get_pressed()
@@ -275,6 +349,7 @@ async def main():
                             x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
                             y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
                             slime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            gslime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
                             xy_rect = (math.floor(x_rect/64), math.floor(y_rect/64))
                             yx_rect = (math.ceil(x_rect/64), math.ceil(y_rect/64))
                             if xy_rect in slimelist or yx_rect in slimelist:
@@ -284,9 +359,60 @@ async def main():
                             #    print(x_rect, y_rect)
                             #    tilemap[target_chunk][tile][2] = False
                             else:
-                                display.blit(slime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
+                                display.blit(gslime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
+
+                        if tile[2] == 2:
+                            n = int(time.time() * 8) % 8
+                            x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
+                            y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
+                            slime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            pslime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            xy_rect = (math.floor(x_rect/64), math.floor(y_rect/64))
+                            yx_rect = (math.ceil(x_rect/64), math.ceil(y_rect/64))
+                            if xy_rect in slimelist or yx_rect in slimelist:
+                                tilemap[target_chunk][i][2] = 0
+                            #if pygame.Rect(x_rect, y_rect, tile_size, tile_size).collidelist(deleted_slimes) > 0: 
+                            #    
+                            #    print(x_rect, y_rect)
+                            #    tilemap[target_chunk][tile][2] = False
+                            else:
+                                display.blit(pslime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
                             #print(tilemap[target_chunk][tile[2]])
     
+                        if tile[2] == 3:
+                            n = int(time.time() * 8) % 8
+                            x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
+                            y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
+                            slime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            bslime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            xy_rect = (math.floor(x_rect/64), math.floor(y_rect/64))
+                            yx_rect = (math.ceil(x_rect/64), math.ceil(y_rect/64))
+                            if xy_rect in slimelist or yx_rect in slimelist:
+                                tilemap[target_chunk][i][2] = 0
+                            #if pygame.Rect(x_rect, y_rect, tile_size, tile_size).collidelist(deleted_slimes) > 0: 
+                            #    
+                            #    print(x_rect, y_rect)
+                            #    tilemap[target_chunk][tile][2] = False
+                            else:
+                                display.blit(bslime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
+
+                        if tile[2] == 4:
+                            n = int(time.time() * 8) % 8
+                            x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
+                            y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
+                            slime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            yslime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
+                            xy_rect = (math.floor(x_rect/64), math.floor(y_rect/64))
+                            yx_rect = (math.ceil(x_rect/64), math.ceil(y_rect/64))
+                            if xy_rect in slimelist or yx_rect in slimelist:
+                                tilemap[target_chunk][i][2] = 0
+                            #if pygame.Rect(x_rect, y_rect, tile_size, tile_size).collidelist(deleted_slimes) > 0: 
+                            #    
+                            #    print(x_rect, y_rect)
+                            #    tilemap[target_chunk][tile][2] = False
+                            else:
+                                display.blit(yslime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
+
                         #display.blit(tile_index[tile[1]], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
        
         deleted_slimes = []
@@ -322,9 +448,19 @@ async def main():
                     slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
-                    deleted_slimes.append(i.copy())        
+                    deleted_slimes.append(i.copy())
+                    if player_hitbox.collidelist(gslime_hitbox) > 0:
+                        add = 1
+                    elif player_hitbox.collidelist(pslime_hitbox) > 0:
+                        add = random.randint(1,2)
+                    elif player_hitbox.collidelist(bslime_hitbox) > 0:
+                        add = random.randint(3,4)
+                    elif player_hitbox.collidelist(yslime_hitbox) > 0:
+                        add = random.randint(10,20)
+                    else:
+                        add = 1
             attack = False
-            coins += 1
+            coins += add
             print(coins)
             #print(selected_slime.x, selected_slime.y)
     
@@ -338,9 +474,21 @@ async def main():
                     slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
-                    deleted_slimes.append(i.copy())        
+                    deleted_slimes.append(i.copy())
+                    if player_hitbox_DOWN.collidelist(gslime_hitbox) > 0:
+                        add = 1
+                    elif player_hitbox_DOWN.collidelist(pslime_hitbox) > 0:
+                        add = random.randint(1,2)
+                    elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0:
+                        add = random.randint(3,4)
+                    elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0:
+                        add = random.randint(10,20)
+                    else:
+                        print('error')
+                        add = 1
+
             attack = False
-            coins += 1
+            coins += add
             print(coins)
     
 
@@ -353,9 +501,20 @@ async def main():
                     slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
-                    deleted_slimes.append(i.copy())        
+                    deleted_slimes.append(i.copy())
+                    if player_hitbox_UP.collidelist(gslime_hitbox) > 0:
+                        add = 1
+                    elif player_hitbox_UP.collidelist(pslime_hitbox) > 0:
+                        add = random.randint(1,2)
+                    elif player_hitbox_UP.collidelist(bslime_hitbox) > 0:
+                        add = random.randint(3,4)
+                    elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
+                        add = random.randint(10,20)
+                    else:
+                        add = 1
+
             attack = False
-            coins += 1
+            coins += add
             print(coins)
     
         
@@ -369,8 +528,19 @@ async def main():
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
                     deleted_slimes.append(i.copy())        
+                    if player_hitbox_RIGHT.collidelist(gslime_hitbox) > 0:
+                        add = 1
+                    elif player_hitbox_RIGHT.collidelist(pslime_hitbox) > 0:
+                        add = random.randint(1,2)
+                    elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0:
+                        add = random.randint(3,4)
+                    elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
+                        add = random.randint(10,20)
+                    else:
+                        add = 1
+
             attack = False
-            coins += 1
+            coins += add
             print(coins)
     
     
@@ -384,8 +554,19 @@ async def main():
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
                     deleted_slimes.append(i.copy())        
+                    if player_hitbox_LEFT.collidelist(gslime_hitbox) > 0:
+                        add = 1
+                    elif player_hitbox_LEFT.collidelist(pslime_hitbox) > 0:
+                        add = random.randint(1,2)
+                    elif player_hitbox_LEFT.collidelist(bslime_hitbox) > 0:
+                        add = random.randint(3,4)
+                    elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0:
+                        add = random.randint(10,20)
+                    else:
+                        add = 1
+
             attack = False
-            coins += 1
+            coins += add
             print(coins)
     
     

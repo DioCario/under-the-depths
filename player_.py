@@ -106,41 +106,6 @@ b2sword = pg.image.load(os.path.join('assets', 'images', 'player', 'b2sword.png'
 b3sword = pg.image.load(os.path.join('assets', 'images', 'player', 'b3sword.png')).convert_alpha()
 b4sword = pg.image.load(os.path.join('assets', 'images', 'player', 'b4sword.png')).convert_alpha()
     
-    # Blob
-f1slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump1.png')).convert_alpha()
-f2slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump2.png')).convert_alpha()
-f3slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump3.png')).convert_alpha()
-f4slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump4.png')).convert_alpha()
-f5slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump5.png')).convert_alpha()
-f6slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump6.png')).convert_alpha()
-f7slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump7.png')).convert_alpha()
-f8slimegreen = pg.image.load(os.path.join('assets', 'images', 'blob', 'slimejump8.png')).convert_alpha()
-    
-
-
-    #Index Tiles
-tile_index = {0:floor,
-                1:wall}
-    
-slime_index = {0:f1slimegreen,
-               1:f2slimegreen,
-               2:f3slimegreen,
-               3:f4slimegreen,
-               4:f5slimegreen,
-               5:f6slimegreen,
-               6:f7slimegreen,
-               7:f8slimegreen,
-                }    
-
-# Starting Frame
-framename = 'fwdstand'
-
-    # 36 so the player is within 1 tile
-display_scroll = [0,36]
-
-    # To fix spawning on a wall, used so it doesn't run as hard in the background
-FIRST_LOOP = True
-
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
         self.x = x
