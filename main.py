@@ -20,7 +20,7 @@ screen_height = 720
 #display = pygame.display.set_mode((pygame.transform.scale(game_canvas, screen.get_size())))
 display = pygame.display.set_mode((screen_width, screen_height))
 
-# Player and it's hitbox. 32px by 54px was painstakingly measured by hand and needs work
+# Player and it's hitbox. 32px by 50px was painstakingly measured by hand and needs work
 player = Player((screen_width / 2), (screen_height / 2), 32, 50)
 player_hitbox = pygame.Rect((screen_width / 2), (screen_height / 2), 32, 50)
 
