@@ -86,8 +86,12 @@ async def main():
     nine = pg.image.load(os.path.join('assets', 'ui', '9.png')).convert_alpha()
 
     ui = pg.image.load(os.path.join('assets', 'ui', 'coinui.png')).convert_alpha()
-    
-    
+
+    coin1 = pg.image.load(os.path.join('assets', 'ui', 'coin1.png')).convert_alpha()
+    coin2 = pg.image.load(os.path.join('assets', 'ui', 'coin2.png')).convert_alpha()
+    coin3 = pg.image.load(os.path.join('assets', 'ui', 'coin3.png')).convert_alpha()
+    coin4 = pg.image.load(os.path.join('assets', 'ui', 'coin4.png')).convert_alpha()
+
 
     # Load Player Animations
     # Down
@@ -160,11 +164,25 @@ async def main():
                    7:f8slimegreen,
                 }    
 
+    nindex = {
+        0:zero,
+        1:one,
+        2:two,
+        3:three,
+        4:four,
+        5:five,
+        6:six,
+        7:seven,
+        8:eight,
+        9:nine,
+    }
     # Starting Frame
     framename = 'fwdstand'
 
     # 36 so the player is within 1 tile
     display_scroll = [0,36]
+
+    coinframe = 0
 
     # To fix spawning on a wall, used so it doesn't run as hard in the background
     FIRST_LOOP = True
@@ -452,6 +470,42 @@ async def main():
         # Player Render
         framename, attack = player.main(display, framename, UP, DOWN, LEFT, RIGHT, attack)
         display.blit(ui, (screen_width-544, 0))
+        if int(coinframe / 10) % 4 == 0:
+            display.blit(coin1, (screen_width-544, 0))
+        elif int(coinframe / 10) % 4 == 1:
+            display.blit(coin2, (screen_width-544, 0))
+        elif int(coinframe / 10) % 4 == 2:
+            display.blit(coin3, (screen_width-544, 0))
+        elif int(coinframe / 10) % 4 == 3:
+            display.blit(coin4, (screen_width-544, 0))
+        coinframe += 1
+        
+        # Temp coin count
+        if coins == 0:
+            numbera = zero
+            numberb = zero
+            numberc = zero
+            numberd = zero
+            numbere = zero
+        elif coins < 100000:
+            numbera = nindex[coins % 10]
+            numberb = nindex[(coins // 10) % 10]
+            numberc = nindex[(coins // 100) % 10]
+            numberd = nindex[(coins // 1000) % 10]
+            numbere = nindex[(coins // 10000) % 10]
+        elif coins >= 100000:
+            numbera = nindex[random.randint(0,9)]
+            numberb = nindex[random.randint(0,9)]
+            numberc = nindex[random.randint(0,9)]
+            numberd = nindex[random.randint(0,9)]
+            numbere = nindex[random.randint(0,9)]
+        
+        display.blit(numbera, (screen_width-148, 0))
+        display.blit(numberb, (screen_width-224, 0))
+        display.blit(numberc, (screen_width-300, 0))
+        display.blit(numberd, (screen_width-376, 0))
+        display.blit(numbere, (screen_width-452, 0))
+        
         # Frame Updater
         clock.tick(60)
         await asyncio.sleep(0)
