@@ -458,10 +458,11 @@ async def main():
                     elif player_hitbox.collidelist(yslime_hitbox) > 0:
                         add = random.randint(10,20)
                     else:
+                        print('error')
                         add = 1
             attack = False
             coins += add
-            print(coins)
+            #print(coins)
             #print(selected_slime.x, selected_slime.y)
     
 
@@ -489,7 +490,7 @@ async def main():
 
             attack = False
             coins += add
-            print(coins)
+            #print(coins)
     
 
         elif player_hitbox_UP.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
@@ -511,11 +512,12 @@ async def main():
                     elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
                         add = random.randint(10,20)
                     else:
+                        print('error')
                         add = 1
 
             attack = False
             coins += add
-            print(coins)
+            #print(coins)
     
         
         elif player_hitbox_RIGHT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
@@ -537,11 +539,12 @@ async def main():
                     elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
                         add = random.randint(10,20)
                     else:
+                        print('error')
                         add = 1
 
             attack = False
             coins += add
-            print(coins)
+            #print(coins)
     
     
         elif player_hitbox_LEFT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
@@ -563,11 +566,12 @@ async def main():
                     elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0:
                         add = random.randint(10,20)
                     else:
+                        print('error')
                         add = 1
 
             attack = False
             coins += add
-            print(coins)
+            #print(coins)
     
     
         elif attack == True:
