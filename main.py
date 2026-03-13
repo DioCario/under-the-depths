@@ -56,7 +56,7 @@ async def main():
     wall_hitbox = []
     slime_hitbox = []
     gslime_hitbox = []
-    pslimehitbox = []
+    pslime_hitbox = []
     bslime_hitbox = []
     yslime_hitbox = []
     LAST_BUTTON = ''
@@ -455,11 +455,14 @@ async def main():
                         add = random.randint(1,2)
                     elif player_hitbox.collidelist(bslime_hitbox) > 0:
                         add = random.randint(3,4)
-                    elif player_hitbox.collidelist(yslime_hitbox) > 0:
+                        #print('gfse')
+                    #elif player_hitbox.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+                        #print('something')
+                    else: 
+                        #print('error')
                         add = random.randint(10,20)
-                    else:
-                        print('error')
-                        add = 1
+
             attack = False
             coins += add
             #print(coins)
@@ -482,11 +485,13 @@ async def main():
                         add = random.randint(1,2)
                     elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0:
                         add = random.randint(3,4)
-                    elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0:
-                        add = random.randint(10,20)
+                        #print('fsdf')
+                    #elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+                        #print('somethign')
                     else:
-                        print('error')
-                        add = 1
+                        #print('error')
+                        add = random.randint(10,20)
 
             attack = False
             coins += add
@@ -509,11 +514,12 @@ async def main():
                         add = random.randint(1,2)
                     elif player_hitbox_UP.collidelist(bslime_hitbox) > 0:
                         add = random.randint(3,4)
-                    elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
-                        add = random.randint(10,20)
+                    #elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
                     else:
-                        print('error')
-                        add = 1
+                        #print('error')
+                        add = random.randint(10,20)
+ 
 
             attack = False
             coins += add
@@ -536,11 +542,12 @@ async def main():
                         add = random.randint(1,2)
                     elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0:
                         add = random.randint(3,4)
-                    elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
-                        add = random.randint(10,20)
+                    #elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
                     else:
-                        print('error')
-                        add = 1
+                        #print('error')
+                        add = random.randint(10,20)
+ 
 
             attack = False
             coins += add
@@ -566,7 +573,7 @@ async def main():
                     elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0:
                         add = random.randint(10,20)
                     else:
-                        print('error')
+                        #print('error')
                         add = 1
 
             attack = False
@@ -654,15 +661,15 @@ async def main():
     
         # Player Render
         framename, attack = player.main(display, framename, UP, DOWN, LEFT, RIGHT, attack)
-        display.blit(ui, (screen_width-544, 0))
+        display.blit(ui, (screen_width-408, 0))
         if int(coinframe / 10) % 4 == 0:
-            display.blit(coin1, (screen_width-544, 0))
+            display.blit(coin1, (screen_width-408, 0))
         elif int(coinframe / 10) % 4 == 1:
-            display.blit(coin2, (screen_width-544, 0))
+            display.blit(coin2, (screen_width-408, 0))
         elif int(coinframe / 10) % 4 == 2:
-            display.blit(coin3, (screen_width-544, 0))
+            display.blit(coin3, (screen_width-408, 0))
         elif int(coinframe / 10) % 4 == 3:
-            display.blit(coin4, (screen_width-544, 0))
+            display.blit(coin4, (screen_width-408, 0))
         coinframe += 1
         
         # Temp coin count
@@ -685,11 +692,11 @@ async def main():
             numberd = nindex[random.randint(0,9)]
             numbere = nindex[random.randint(0,9)]
         
-        display.blit(numbera, (screen_width-148, 0))
-        display.blit(numberb, (screen_width-224, 0))
-        display.blit(numberc, (screen_width-300, 0))
-        display.blit(numberd, (screen_width-376, 0))
-        display.blit(numbere, (screen_width-452, 0))
+        display.blit(numbera, (screen_width-111, 0)) # Old Value: 148
+        display.blit(numberb, (screen_width-168, 0)) # Old Value: 224
+        display.blit(numberc, (screen_width-225, 0)) # Old Value: 300
+        display.blit(numberd, (screen_width-282, 0)) # Old Value: 376
+        display.blit(numbere, (screen_width-339, 0)) # Old Value: 452
         
         # Frame Updater
         clock.tick(60)

@@ -124,7 +124,7 @@ class Player(pygame.sprite.Sprite):
 
 
         # Forward Sword
-        if keys[pygame.K_f] and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword' or (keys[pygame.K_f] and framename == 'fwdstand')) and DOWN != 1:
+        if (keys[pygame.K_f] or keys[pygame.K_SPACE]) and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword' or ((keys[pygame.K_f] or keys[pygame.K_SPACE]) and framename == 'fwdstand')) and DOWN != 1:
         
             # Frame 1
             if int(time.time() * aspeed) % 4 == 1:
@@ -148,12 +148,12 @@ class Player(pygame.sprite.Sprite):
                 framename = 'f4sword'
 
             # Reset
-            if keys[pygame.K_f] != True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+            if (keys[pygame.K_f] or keys[pygame.K_SPACE]) != True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
                 frame = fwdstand
                 framename = 'fwdstand'
 
         # Right Sword
-        elif keys[pygame.K_f] and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword' or (keys[pygame.K_f] and framename == 'rgtstand')) and RIGHT != 1:
+        elif (keys[pygame.K_f] or keys[pygame.K_SPACE]) and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword' or ((keys[pygame.K_f] or keys[pygame.K_SPACE]) and framename == 'rgtstand')) and RIGHT != 1:
         
             # Frame 1
             if int(time.time() * aspeed) % 4 == 1:
@@ -177,12 +177,12 @@ class Player(pygame.sprite.Sprite):
                 framename = 'r4sword'
 
             # Reset
-            if keys[pygame.K_f] != True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+            if (keys[pygame.K_f] or keys[pygame.K_SPACE]) != True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
                 frame = rgtstand
                 framename = 'rgtstand'
 
         # Left Sword
-        elif keys[pygame.K_f] and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword' or (keys[pygame.K_f] and framename == 'lftstand')) and LEFT != 1:
+        elif (keys[pygame.K_f] or keys[pygame.K_SPACE]) and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword' or ((keys[pygame.K_f] or keys[pygame.K_SPACE]) and framename == 'lftstand')) and LEFT != 1:
         
             # Frame 1
             if int(time.time() * aspeed) % 4 == 1:
@@ -206,12 +206,12 @@ class Player(pygame.sprite.Sprite):
                 framename = 'l4sword'
 
             # Reset
-            if keys[pygame.K_f] != True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+            if (keys[pygame.K_f] or keys[pygame.K_SPACE]) != True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
                 frame = lftstand
                 framename = 'lftstand'
 
         # Backward Sword
-        elif keys[pygame.K_f] and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword' or (keys[pygame.K_f] and framename == 'bckstand')) and UP != 1:
+        elif (keys[pygame.K_f] or keys[pygame.K_SPACE]) and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword' or ((keys[pygame.K_f] or keys[pygame.K_SPACE]) and framename == 'bckstand')) and UP != 1:
         
             # Frame 1
             if int(time.time() * aspeed) % 4 == 1:
@@ -236,7 +236,7 @@ class Player(pygame.sprite.Sprite):
                 framename = 'b4sword'
 
             # Reset
-            if keys[pygame.K_f] != True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+            if (keys[pygame.K_f] or keys[pygame.K_SPACE]) != True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
                 frame = bckstand
                 framename = 'bckstand'
 

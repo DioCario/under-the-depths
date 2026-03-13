@@ -44,15 +44,14 @@ def generate_chunk(x,y, coins):
             local_diff = ((time.time() - start_time)/720) + (coins/1000)
             if local_diff >= 1:
                 greenslimechance = 0.05
-                purpleslimechance = 0.05
-                blueslimechance = 0.025
-                yellowslimechance = 0.01
+                purpleslimechance = 0.025
+                blueslimechance = 0.0125
+                yellowslimechance = 0.001
             else:
                 greenslimechance = 0.025 * (local_diff + 1)
-                purpleslimechance = 0.01 * ((local_diff * 5) + 1)
-                blueslimechance = 0.0025 * ((local_diff * 10) + 1)
-                yellowslimechance = 0.0001 * ((local_diff * 100) + 1)
-
+                purpleslimechance = 0.005 * ((local_diff * 5) + 1)
+                blueslimechance = 0.00125 * ((local_diff * 10) + 1)
+                yellowslimechance = 0.00001 * ((local_diff * 100) + 1)
 
             if seed.random() <= greenslimechance:
                 slime_here = 1
