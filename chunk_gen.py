@@ -67,3 +67,5 @@ def generate_chunk(x,y, coins):
             # Add Tile to Chunk
             chunk_data.append([[target_x, target_y], tile_type, slime_here])
     return chunk_data
+
+

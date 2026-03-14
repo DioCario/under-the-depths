@@ -16,8 +16,12 @@ pg.init()
 # Init Music
 introsong = pygame.mixer.Sound(os.path.join('assets', 'songs', 'intro.ogg'))
 bgsong1 = pygame.mixer.Sound(os.path.join('assets', 'songs', 'background1.ogg'))
+slash = pygame.mixer.Sound(os.path.join('assets', 'songs', 'slash.ogg'))
+walk = pygame.mixer.Sound(os.path.join('assets', 'songs', 'walk.ogg'))
+sprint = pygame.mixer.Sound(os.path.join('assets', 'songs', 'sprint.ogg'))
 introchannel = pygame.mixer.Channel(0)
 bgchannel = pygame.mixer.Channel(1)
+noisechannel = pygame.mixer.Channel(2)
 
 # Screen Size
 screen_width = 1280
@@ -78,9 +82,12 @@ async def main():
     # Music
     introsong = pygame.mixer.Sound(os.path.join('assets', 'songs', 'intro.ogg'))
     bgsong1 = pygame.mixer.Sound(os.path.join('assets', 'songs', 'background1.ogg'))
+    slash = pygame.mixer.Sound(os.path.join('assets', 'songs', 'slash.ogg'))
+    walk = pygame.mixer.Sound(os.path.join('assets', 'songs', 'walk.ogg'))
+    sprint = pygame.mixer.Sound(os.path.join('assets', 'songs', 'sprint.ogg'))
     introchannel = pygame.mixer.Channel(0)
     bgchannel = pygame.mixer.Channel(1)
-    
+    noisechannel = pygame.mixer.Channel(2) 
     
     # UI
     zero = pg.image.load(os.path.join('assets', 'ui', '0.png')).convert_alpha()
@@ -251,6 +258,8 @@ async def main():
 
     # 36 so the player is within 1 tile
     display_scroll = [0,36]
+    
+    attack_cooldown = 0
 
     coinframe = 0
 
@@ -397,7 +406,7 @@ async def main():
                                 display.blit(bslime_index[n], ((tile[0][0]*tile_size)-display_scroll[0], (tile[0][1]*tile_size)-display_scroll[1]))
 
                         if tile[2] == 4:
-                            n = int(time.time() * 8) % 8
+                            n = int(time.time() * 4) % 8
                             x_rect = (tile[0][0]*tile_size)-display_scroll[0] + (tile_size / 2)
                             y_rect = (tile[0][1]*tile_size)-display_scroll[1] + (tile_size / 2)
                             slime_hitbox.append(pygame.Rect(x_rect, y_rect, tile_size, tile_size))
@@ -439,9 +448,39 @@ async def main():
             if DOWN == 1:
                 DOWN = 0
     
-        if player_hitbox.collidelist(slime_hitbox) > 0 and attack == True:
+        #if player_hitbox.collidelist(slime_hitbox) > 0 and attack == True:
+        #    selected_slime = None
+        #    for i in slime_hitbox:
+        #        if player_hitbox.colliderect(i):
+        #            selected_slime = i
+        #            print(i)
+        #            slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+        #            slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+        #            slime_hitbox.remove(i)
+        #            deleted_slimes.append(i.copy())
+        #            if player_hitbox.collidelist(gslime_hitbox) > 0:
+        #                add = 1
+        #            elif player_hitbox.collidelist(pslime_hitbox) > 0:
+        #                add = random.randint(1,2)
+        #            elif player_hitbox.collidelist(bslime_hitbox) > 0:
+        #                add = random.randint(3,4)
+                        #print('gfse')
+                    #elif player_hitbox.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+                        #print('something')
+        #            else: 
+                        #print('error')
+        #                add = random.randint(10,20)
+
+        #    attack_cooldown = 30
+        #    attack = False
+        #    coins += add
+            #print(coins)
+            #print(selected_slime.x, selected_slime.y)
+   
+        if player_hitbox.collidelist(gslime_hitbox) > 0 and attack == True:
             selected_slime = None
-            for i in slime_hitbox:
+            for i in gslime_hitbox:
                 if player_hitbox.colliderect(i):
                     selected_slime = i
                     #print(i)
@@ -449,29 +488,86 @@ async def main():
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
                     deleted_slimes.append(i.copy())
-                    if player_hitbox.collidelist(gslime_hitbox) > 0:
-                        add = 1
-                    elif player_hitbox.collidelist(pslime_hitbox) > 0:
-                        add = random.randint(1,2)
-                    elif player_hitbox.collidelist(bslime_hitbox) > 0:
-                        add = random.randint(3,4)
-                        #print('gfse')
-                    #elif player_hitbox.collidelist(yslime_hitbox) > 0:
-                    #    add = random.randint(10,20)
-                        #print('something')
-                    else: 
-                        #print('error')
-                        add = random.randint(10,20)
-
+            attack_cooldown = 30
             attack = False
-            coins += add
-            #print(coins)
-            #print(selected_slime.x, selected_slime.y)
-    
+            coins += random.randint(1,2)
 
-        elif player_hitbox_DOWN.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+        elif player_hitbox.collidelist(pslime_hitbox) > 0 and attack == True:
             selected_slime = None
-            for i in slime_hitbox:
+            for i in pslime_hitbox:
+                if player_hitbox.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(3,5)
+
+        elif player_hitbox.collidelist(bslime_hitbox) > 0 and attack == True:
+            selected_slime = None
+            for i in bslime_hitbox:
+                if player_hitbox.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(6,8)
+
+        elif player_hitbox.collidelist(yslime_hitbox) > 0 and attack == True:
+            selected_slime = None
+            for i in yslime_hitbox:
+                if player_hitbox.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(10,20)
+
+
+
+        #elif player_hitbox_DOWN.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+        #    selected_slime = None
+        #    for i in slime_hitbox:
+        #        if player_hitbox_DOWN.colliderect(i):
+        #            selected_slime = i
+                    #print(i)
+        #            slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+        #            slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+        #            slime_hitbox.remove(i)
+        #            deleted_slimes.append(i.copy())
+        #            if player_hitbox_DOWN.collidelist(gslime_hitbox) > 0:
+        #                add = 1
+        #            elif player_hitbox_DOWN.collidelist(pslime_hitbox) > 0:
+        #                add = random.randint(1,2)
+        #            elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0:
+        #                add = random.randint(3,4)
+                        #print('fsdf')
+                    #elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+                        #print('somethign')
+        #            else:
+        #                #print('error')
+        #                add = random.randint(10,20)
+
+        #    attack_cooldown = 30
+        #    attack = False
+        #    coins += add
+            #print(coins)
+
+        elif player_hitbox_DOWN.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+            selected_slime = None
+            for i in gslime_hitbox:
                 if player_hitbox_DOWN.colliderect(i):
                     selected_slime = i
                     #print(i)
@@ -479,28 +575,84 @@ async def main():
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
                     deleted_slimes.append(i.copy())
-                    if player_hitbox_DOWN.collidelist(gslime_hitbox) > 0:
-                        add = 1
-                    elif player_hitbox_DOWN.collidelist(pslime_hitbox) > 0:
-                        add = random.randint(1,2)
-                    elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0:
-                        add = random.randint(3,4)
-                        #print('fsdf')
-                    #elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0:
-                    #    add = random.randint(10,20)
-                        #print('somethign')
-                    else:
-                        #print('error')
-                        add = random.randint(10,20)
-
+            attack_cooldown = 30
             attack = False
-            coins += add
+            coins += random.randint(1,2)
+
+        elif player_hitbox_DOWN.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+            selected_slime = None
+            for i in pslime_hitbox:
+                if player_hitbox_DOWN.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(3,5)
+
+        elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+            selected_slime = None
+            for i in bslime_hitbox:
+                if player_hitbox_DOWN.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(6,8)
+
+        elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
+            selected_slime = None
+            for i in yslime_hitbox:
+                if player_hitbox_DOWN.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(10,20)
+
+
+
+        #elif player_hitbox_UP.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+        #    selected_slime = None
+        #    for i in slime_hitbox:
+        #        if player_hitbox_UP.colliderect(i):
+        #            selected_slime = i
+        #            #print(i)
+        #            slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+        #            slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+        #            slime_hitbox.remove(i)
+        #            deleted_slimes.append(i.copy())
+        #            if player_hitbox_UP.collidelist(gslime_hitbox) > 0:
+        #                add = 1
+        #            elif player_hitbox_UP.collidelist(pslime_hitbox) > 0:
+        #                add = random.randint(1,2)
+        #            elif player_hitbox_UP.collidelist(bslime_hitbox) > 0:
+        #                add = random.randint(3,4)
+                    #elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+        #            else:
+                        #print('error')
+        #                add = random.randint(10,20)
+ 
+        #    attack_cooldown = 30
+        #    attack = False
+        #    coins += add
             #print(coins)
     
-
-        elif player_hitbox_UP.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+        elif player_hitbox_UP.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
             selected_slime = None
-            for i in slime_hitbox:
+            for i in gslime_hitbox:
                 if player_hitbox_UP.colliderect(i):
                     selected_slime = i
                     #print(i)
@@ -508,78 +660,223 @@ async def main():
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
                     deleted_slimes.append(i.copy())
-                    if player_hitbox_UP.collidelist(gslime_hitbox) > 0:
-                        add = 1
-                    elif player_hitbox_UP.collidelist(pslime_hitbox) > 0:
-                        add = random.randint(1,2)
-                    elif player_hitbox_UP.collidelist(bslime_hitbox) > 0:
-                        add = random.randint(3,4)
-                    #elif player_hitbox_UP.collidelist(yslime_hitbox) > 0:
-                    #    add = random.randint(10,20)
-                    else:
-                        #print('error')
-                        add = random.randint(10,20)
- 
-
+            attack_cooldown = 30
             attack = False
-            coins += add
+            coins += random.randint(1,2)
+
+        elif player_hitbox_UP.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+            selected_slime = None
+            for i in pslime_hitbox:
+                if player_hitbox_UP.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(3,5)
+
+        elif player_hitbox_UP.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+            selected_slime = None
+            for i in bslime_hitbox:
+                if player_hitbox_UP.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(6,8)
+
+        elif player_hitbox_UP.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+            selected_slime = None
+            for i in yslime_hitbox:
+                if player_hitbox_UP.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(10,20)
+
+
+        
+        #elif player_hitbox_RIGHT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+        #    selected_slime = None
+        #    for i in slime_hitbox:
+        #        if player_hitbox_RIGHT.colliderect(i):
+        #            selected_slime = i
+                    #print(i)
+        #            slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+        #            slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+        #            slime_hitbox.remove(i)
+        #            deleted_slimes.append(i.copy())        
+        #            if player_hitbox_RIGHT.collidelist(gslime_hitbox) > 0:
+        #                add = 1
+        #            elif player_hitbox_RIGHT.collidelist(pslime_hitbox) > 0:
+        #                add = random.randint(1,2)
+        #            elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0:
+        #                add = random.randint(3,4)
+                    #elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
+                    #    add = random.randint(10,20)
+        #            else:
+                        #print('error')
+        #                add = random.randint(10,20)
+ 
+        #    attack_cooldown = 30
+        #    attack = False
+        #    coins += add
             #print(coins)
     
-        
-        elif player_hitbox_RIGHT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+        elif player_hitbox_RIGHT.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
             selected_slime = None
-            for i in slime_hitbox:
+            for i in gslime_hitbox:
                 if player_hitbox_RIGHT.colliderect(i):
                     selected_slime = i
                     #print(i)
                     slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
-                    deleted_slimes.append(i.copy())        
-                    if player_hitbox_RIGHT.collidelist(gslime_hitbox) > 0:
-                        add = 1
-                    elif player_hitbox_RIGHT.collidelist(pslime_hitbox) > 0:
-                        add = random.randint(1,2)
-                    elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0:
-                        add = random.randint(3,4)
-                    #elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0:
-                    #    add = random.randint(10,20)
-                    else:
-                        #print('error')
-                        add = random.randint(10,20)
- 
-
+                    deleted_slimes.append(i.copy()) 
+            attack_cooldown = 30
             attack = False
-            coins += add
+            coins += random.randint(1,2)
+
+        elif player_hitbox_RIGHT.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+            selected_slime = None
+            for i in pslime_hitbox:
+                if player_hitbox_RIGHT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy()) 
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(3,5)
+
+        elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+            selected_slime = None
+            for i in bslime_hitbox:
+                if player_hitbox_RIGHT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy()) 
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(6,8)
+
+        elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
+            selected_slime = None
+            for i in yslime_hitbox:
+                if player_hitbox_RIGHT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy()) 
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(10,20)
+    
+
+
+        #elif player_hitbox_LEFT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+        #    selected_slime = None
+        #    for i in slime_hitbox:
+        #        if player_hitbox_LEFT.colliderect(i):
+        #            selected_slime = i
+        #            #print(i)
+        #            slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+        #            slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+        #            slime_hitbox.remove(i)
+        #            deleted_slimes.append(i.copy())        
+        #            if player_hitbox_LEFT.collidelist(gslime_hitbox) > 0:
+        #                add = 1
+        #            elif player_hitbox_LEFT.collidelist(pslime_hitbox) > 0:
+        #                add = random.randint(1,2)
+        #            elif player_hitbox_LEFT.collidelist(bslime_hitbox) > 0:
+        #                add = random.randint(3,4)
+        #            elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0:
+        #                add = random.randint(10,20)
+        #            else:
+                        #print('error')
+        #                add = 1
+            
+        #    attack_cooldown = 30
+        #    attack = False
+        #    coins += add
             #print(coins)
     
-    
-        elif player_hitbox_LEFT.collidelist(slime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+        elif player_hitbox_LEFT.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
             selected_slime = None
-            for i in slime_hitbox:
+            for i in gslime_hitbox:
                 if player_hitbox_LEFT.colliderect(i):
                     selected_slime = i
                     #print(i)
                     slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
                     slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
                     slime_hitbox.remove(i)
-                    deleted_slimes.append(i.copy())        
-                    if player_hitbox_LEFT.collidelist(gslime_hitbox) > 0:
-                        add = 1
-                    elif player_hitbox_LEFT.collidelist(pslime_hitbox) > 0:
-                        add = random.randint(1,2)
-                    elif player_hitbox_LEFT.collidelist(bslime_hitbox) > 0:
-                        add = random.randint(3,4)
-                    elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0:
-                        add = random.randint(10,20)
-                    else:
-                        #print('error')
-                        add = 1
-
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
             attack = False
-            coins += add
-            #print(coins)
-    
+            coins += random.randint(1,2)
+
+        elif player_hitbox_LEFT.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+            selected_slime = None
+            for i in pslime_hitbox:
+                if player_hitbox_LEFT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(3,5)
+
+        elif player_hitbox_LEFT.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+            selected_slime = None
+            for i in bslime_hitbox:
+                if player_hitbox_LEFT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(6,8)
+
+        elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
+            selected_slime = None
+            for i in yslime_hitbox:
+                if player_hitbox_LEFT.colliderect(i):
+                    selected_slime = i
+                    #print(i)
+                    slimelist.append((math.floor(i.x/64), math.floor(i.y/64)))
+                    slimelist.append((math.ceil(i.x/64), math.ceil(i.y/64)))
+                    slime_hitbox.remove(i)
+                    deleted_slimes.append(i.copy())
+            attack_cooldown = 30
+            attack = False
+            coins += random.randint(10,20)
+
+
     
         elif attack == True:
             attack = False
@@ -590,24 +887,40 @@ async def main():
         if LEFT == 1 and RIGHT != 1 and UP != 1 and DOWN != 1 and player_hitbox_left.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'LEFT'
             display_scroll[0] -= mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
         elif LEFT == -1:
             display_scroll[0] += mspeed * dt
     
         if RIGHT == 1 and LEFT != 1 and UP != 1 and DOWN != 1 and player_hitbox_right.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'RIGHT'
             display_scroll[0] += mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
         elif RIGHT == -1:
             display_scroll[0] -= mspeed * dt
     
         if UP == 1 and LEFT != 1 and RIGHT != 1 and DOWN != 1 and player_hitbox_up.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'UP'
             display_scroll[1] -= mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
         elif UP == -1:
             display_scroll[1] += mspeed * dt
     
         if DOWN == 1 and LEFT != 1 and RIGHT != 1 and UP != 1 and player_hitbox_down.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'DOWN'
             display_scroll[1] += mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
         elif DOWN == -1:
             display_scroll[1] -= mspeed * dt
     
@@ -615,15 +928,31 @@ async def main():
         if (UP == 1 and LEFT == 1 and RIGHT != 1 and DOWN != 1) or (UP == 1 and LEFT != 1 and RIGHT == 1 and DOWN != 1) and player_hitbox_up.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'UP'
             display_scroll[1] -= mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
     
         if RIGHT == 1 and LEFT != 1 and UP != 1 and DOWN == 1 and player_hitbox_right.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'RIGHT'
             display_scroll[0] += mspeed * dt
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
     
         if LEFT == 1 and RIGHT != 1 and UP != 1 and DOWN == 1 and player_hitbox_left.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'LEFT'
             display_scroll[0] -= mspeed * dt
-        
+            if mspeed == 8:
+                noisechannel.play(walk, loops=-1)
+            elif mspeed == 16:
+                noisechannel.play(sprint, loops=-1)
+
+        # Turn off noises
+        if UP != 1 and LEFT != 1 and RIGHT != 1 and DOWN != 1:
+            noisechannel.stop()
+ 
         if player_hitbox.collidelist(wall_hitbox) > 0:
             UP = 0
             DOWN = 0
@@ -661,6 +990,12 @@ async def main():
     
         # Player Render
         framename, attack = player.main(display, framename, UP, DOWN, LEFT, RIGHT, attack)
+        if attack_cooldown > 0:
+            attack = False
+            attack_cooldown -= 1
+        
+            
+        # UI
         display.blit(ui, (screen_width-408, 0))
         if int(coinframe / 10) % 4 == 0:
             display.blit(coin1, (screen_width-408, 0))
