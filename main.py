@@ -447,7 +447,9 @@ async def main():
                 UP = 0
             if DOWN == 1:
                 DOWN = 0
-    
+
+
+
         #if player_hitbox.collidelist(slime_hitbox) > 0 and attack == True:
         #    selected_slime = None
         #    for i in slime_hitbox:
@@ -480,6 +482,9 @@ async def main():
    
         if player_hitbox.collidelist(gslime_hitbox) > 0 and attack == True:
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in gslime_hitbox:
                 if player_hitbox.colliderect(i):
                     selected_slime = i
@@ -494,6 +499,9 @@ async def main():
 
         elif player_hitbox.collidelist(pslime_hitbox) > 0 and attack == True:
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in pslime_hitbox:
                 if player_hitbox.colliderect(i):
                     selected_slime = i
@@ -508,6 +516,9 @@ async def main():
 
         elif player_hitbox.collidelist(bslime_hitbox) > 0 and attack == True:
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:  
+                noisechannel.play(slash, loops=0)
             for i in bslime_hitbox:
                 if player_hitbox.colliderect(i):
                     selected_slime = i
@@ -522,6 +533,9 @@ async def main():
 
         elif player_hitbox.collidelist(yslime_hitbox) > 0 and attack == True:
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:
+                noisechannel.play(slash, loops=0)
             for i in yslime_hitbox:
                 if player_hitbox.colliderect(i):
                     selected_slime = i
@@ -567,6 +581,9 @@ async def main():
 
         elif player_hitbox_DOWN.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:
+                noisechannel.play(slash, loops=0)
             for i in gslime_hitbox:
                 if player_hitbox_DOWN.colliderect(i):
                     selected_slime = i
@@ -581,6 +598,9 @@ async def main():
 
         elif player_hitbox_DOWN.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:
+                noisechannel.play(slash, loops=0)
             for i in pslime_hitbox:
                 if player_hitbox_DOWN.colliderect(i):
                     selected_slime = i
@@ -595,6 +615,9 @@ async def main():
 
         elif player_hitbox_DOWN.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in bslime_hitbox:
                 if player_hitbox_DOWN.colliderect(i):
                     selected_slime = i
@@ -609,6 +632,9 @@ async def main():
 
         elif player_hitbox_DOWN.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in yslime_hitbox:
                 if player_hitbox_DOWN.colliderect(i):
                     selected_slime = i
@@ -652,6 +678,9 @@ async def main():
     
         elif player_hitbox_UP.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in gslime_hitbox:
                 if player_hitbox_UP.colliderect(i):
                     selected_slime = i
@@ -666,6 +695,9 @@ async def main():
 
         elif player_hitbox_UP.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in pslime_hitbox:
                 if player_hitbox_UP.colliderect(i):
                     selected_slime = i
@@ -680,6 +712,9 @@ async def main():
 
         elif player_hitbox_UP.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in bslime_hitbox:
                 if player_hitbox_UP.colliderect(i):
                     selected_slime = i
@@ -694,6 +729,9 @@ async def main():
 
         elif player_hitbox_UP.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in yslime_hitbox:
                 if player_hitbox_UP.colliderect(i):
                     selected_slime = i
@@ -737,6 +775,9 @@ async def main():
     
         elif player_hitbox_RIGHT.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in gslime_hitbox:
                 if player_hitbox_RIGHT.colliderect(i):
                     selected_slime = i
@@ -751,6 +792,9 @@ async def main():
 
         elif player_hitbox_RIGHT.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in pslime_hitbox:
                 if player_hitbox_RIGHT.colliderect(i):
                     selected_slime = i
@@ -765,6 +809,9 @@ async def main():
 
         elif player_hitbox_RIGHT.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in bslime_hitbox:
                 if player_hitbox_RIGHT.colliderect(i):
                     selected_slime = i
@@ -779,6 +826,9 @@ async def main():
 
         elif player_hitbox_RIGHT.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in yslime_hitbox:
                 if player_hitbox_RIGHT.colliderect(i):
                     selected_slime = i
@@ -822,6 +872,9 @@ async def main():
     
         elif player_hitbox_LEFT.collidelist(gslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in gslime_hitbox:
                 if player_hitbox_LEFT.colliderect(i):
                     selected_slime = i
@@ -836,6 +889,9 @@ async def main():
 
         elif player_hitbox_LEFT.collidelist(pslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash: 
+                noisechannel.play(slash, loops=0)
             for i in pslime_hitbox:
                 if player_hitbox_LEFT.colliderect(i):
                     selected_slime = i
@@ -850,6 +906,9 @@ async def main():
 
         elif player_hitbox_LEFT.collidelist(bslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:
+                noisechannel.play(slash, loops=0)
             for i in bslime_hitbox:
                 if player_hitbox_LEFT.colliderect(i):
                     selected_slime = i
@@ -864,6 +923,9 @@ async def main():
 
         elif player_hitbox_LEFT.collidelist(yslime_hitbox) > 0 and attack == True and (framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword'):
             selected_slime = None
+            # Slash noise
+            if noisechannel.get_sound() != slash:
+                noisechannel.play(slash, loops=0)
             for i in yslime_hitbox:
                 if player_hitbox_LEFT.colliderect(i):
                     selected_slime = i
@@ -883,13 +945,18 @@ async def main():
 
     
 
+
+
+
+
+
         # Movements
         if LEFT == 1 and RIGHT != 1 and UP != 1 and DOWN != 1 and player_hitbox_left.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'LEFT'
             display_scroll[0] -= mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and not noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
         elif LEFT == -1:
             display_scroll[0] += mspeed * dt
@@ -897,9 +964,9 @@ async def main():
         if RIGHT == 1 and LEFT != 1 and UP != 1 and DOWN != 1 and player_hitbox_right.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'RIGHT'
             display_scroll[0] += mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
         elif RIGHT == -1:
             display_scroll[0] -= mspeed * dt
@@ -907,9 +974,9 @@ async def main():
         if UP == 1 and LEFT != 1 and RIGHT != 1 and DOWN != 1 and player_hitbox_up.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'UP'
             display_scroll[1] -= mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
         elif UP == -1:
             display_scroll[1] += mspeed * dt
@@ -917,9 +984,9 @@ async def main():
         if DOWN == 1 and LEFT != 1 and RIGHT != 1 and UP != 1 and player_hitbox_down.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'DOWN'
             display_scroll[1] += mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
         elif DOWN == -1:
             display_scroll[1] -= mspeed * dt
@@ -928,29 +995,35 @@ async def main():
         if (UP == 1 and LEFT == 1 and RIGHT != 1 and DOWN != 1) or (UP == 1 and LEFT != 1 and RIGHT == 1 and DOWN != 1) and player_hitbox_up.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'UP'
             display_scroll[1] -= mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
     
         if RIGHT == 1 and LEFT != 1 and UP != 1 and DOWN == 1 and player_hitbox_right.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'RIGHT'
             display_scroll[0] += mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
     
         if LEFT == 1 and RIGHT != 1 and UP != 1 and DOWN == 1 and player_hitbox_left.collidelist(wall_hitbox) < 0 and framename != 'f1sword' and framename != 'f2sword' and framename != 'f3sword' and framename != 'f4sword' and framename != 'b1sword' and framename != 'b2sword' and framename != 'b3sword' and framename != 'b4sword' and framename != 'r1sword' and framename != 'r2sword' and framename != 'r3sword' and framename != 'r4sword' and framename != 'l1sword' and framename != 'l2sword' and framename != 'l3sword' and framename != 'l4sword':
             LAST_BUTTON = 'LEFT'
             display_scroll[0] -= mspeed * dt
-            if mspeed == 8:
+            if mspeed == 8 and noisechannel.get_sound() != walk:
                 noisechannel.play(walk, loops=-1)
-            elif mspeed == 16:
+            elif mspeed == 16 and noisechannel.get_sound() != sprint:
                 noisechannel.play(sprint, loops=-1)
 
+        # Slash noise
+#        if not noisechannel.get_busy() and (framename == 'f1sword' or framename == 'f2sword' or framename == 'f3sword' or framename == 'f4sword' or framename == 'l1sword' or framename == 'l2sword' or framename == 'l3sword' or framename == 'l4sword' or framename == 'r1sword' or framename == 'r2sword' or framename == 'r3sword' or framename == 'r4sword' or framename == 'b1sword' or framename == 'b2sword' or framename == 'b3sword' or framename == 'b4sword'):
+#            noisechannel.play(slash, loops=-1)
+        #print(noisechannel.get_sound())
+
+
         # Turn off noises
-        if UP != 1 and LEFT != 1 and RIGHT != 1 and DOWN != 1:
+        if UP != 1 and LEFT != 1 and RIGHT != 1 and DOWN != 1 and not (keys[pygame.K_f] or keys[pygame.K_SPACE]):
             noisechannel.stop()
  
         if player_hitbox.collidelist(wall_hitbox) > 0:
