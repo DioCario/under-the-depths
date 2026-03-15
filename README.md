@@ -21,9 +21,13 @@ Shift to sprint
 If you can't kit the slimes, try moving around a bit, the collision system is fairly buggy
 
 Credits:
+
   Code - Dion
+  
   Artwork - Ash
+  
   Music - Linge
+  
 
 
 
