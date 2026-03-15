@@ -20,6 +20,8 @@ Shift to sprint
 
 If you can't kit the slimes, try moving around a bit, the collision system is fairly buggy
 
+itch.io [link](https://diocario.itch.io/under-the-depths)
+
 Credits:
 
   Code - Dion
