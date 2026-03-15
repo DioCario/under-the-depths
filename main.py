@@ -194,6 +194,14 @@ async def main():
     f7slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump7.png')).convert_alpha()
     f8slimeyellow = pg.image.load(os.path.join('assets', 'images', 'blob', 'yslimejump8.png')).convert_alpha()
 
+    # Icon & Title
+    iconold = pg.image.load(os.path.join('assets', 'images', 'favicon.png')).convert_alpha()
+    icon = pygame.transform.smoothscale(iconold, (32, 32))
+    pygame.display.set_icon(icon)
+    pygame.display.set_caption('Under the Depths')
+
+
+
     #Index Tiles
     tile_index = {0:floor,
                   1:wall}
