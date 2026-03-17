@@ -18,7 +18,7 @@ WASD or Arrow keys to move
 F or Space bar to attack
 Shift to sprint
 
-If you can't kit the slimes, try moving around a bit, the collision system is fairly buggy
+If you can't kill the slimes, try moving around a bit, the collision system is fairly buggy
 
 itch.io [link](https://diocario.itch.io/under-the-depths)
 
