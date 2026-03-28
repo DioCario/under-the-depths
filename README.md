@@ -18,7 +18,9 @@ WASD or Arrow keys to move
 F or Space bar to attack
 Shift to sprint
 
-If you can't kill the slimes, try moving around a bit, the collision system is fairly buggy
+If you can't kill the slimes, try moving around a bit, the collision system is fairly buggy. I am unable to find a solution to it currently, so I'm leaving it as feature, to make the game harder.
+
+If you look into the code, it's very messy. Most of the mess was caused from getting it to work in the web. I don't consider it a priority to go and optimize the code, especially since it runs perfectly fine on my 6 year old CPU.
 
 itch.io [link](https://diocario.itch.io/under-the-depths)
 
@@ -45,9 +47,3 @@ Credits:
 
 
 
-
-
-
-
-
-I'll improve this page later
